@@ -1,9 +1,9 @@
 const express = require('express')
-const routes = require('./server/routes/index')
+const routesApi = require('./server/routes')
 const app = express()
 const port = 3000
 
-app.use('/', routes);
+app.use('/', routesApi);
 
 app.get('*', (req, res) => {
   res.send('Hello World!')
