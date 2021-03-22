@@ -3,7 +3,7 @@ const { DataTypes } = require("sequelize");
 const sequelize = require("../config/sequelize");
 
 const Users = sequelize.define("users", {
-  username: {
+  userName: {
     type: DataTypes.STRING,
     allowNull: false, //coluna que tiver allowNull: false será definida com uma NOT NULL restrição SQL
     unique: true, //nome de usuário só pode ser usado uma vez

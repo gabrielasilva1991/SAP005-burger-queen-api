@@ -11,9 +11,9 @@ const userController = {
   },
 
   userCreate(req, res, next) {
-    const { username, email, password, restaurant, role } = req.body;
+    const { userName, email, password, restaurant, role } = req.body;
     Users.create({
-      username,
+      userName,
       email,
       password,
       restaurant,
@@ -36,9 +36,9 @@ const userController = {
   },
 
   updateUserId(req, res, next) {
-    const { username, email, password, restaurant, role } = req.body;
+    const { userName, email, password, restaurant, role } = req.body;
     Users.update({
-      username,
+      userName,
       email,
       password,
       restaurant,
