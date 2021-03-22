@@ -1,12 +1,12 @@
 const { DataTypes } = require("sequelize");
 
-const sequelize = require("../../database/sequelize");
+const sequelize = require("../config/sequelize");
 
 const Users = sequelize.define("users", {
   username: {
     type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
+    allowNull: false, //coluna que tiver allowNull: false será definida com uma NOT NULL restrição SQL
+    unique: true, //nome de usuário só pode ser usado uma vez
   },
   
   email: {
@@ -29,9 +29,7 @@ const Users = sequelize.define("users", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-
-
-   
+  
   // type: DataTypes.DATETIME, a data / hora atual será usada para preencher esta coluna 
   // defaultValue: Sequelize.NOW (no momento da inserção)
 });
