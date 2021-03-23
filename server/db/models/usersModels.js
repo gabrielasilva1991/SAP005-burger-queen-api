@@ -1,46 +1,27 @@
-const { DataTypes } = require("sequelize");
-
-const sequelize = require("../config/sequelize");
-
-const Users = sequelize.define("users", {
-  username: {
-    type: DataTypes.STRING,
-    allowNull: false, //coluna que tiver allowNull: false será definida com uma NOT NULL restrição SQL
-    unique: true, //nome de usuário só pode ser usado uma vez
-  },
-  
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-  },
-
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-
-  restaurant: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  
-  role: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  
-  // type: DataTypes.DATETIME, a data / hora atual será usada para preencher esta coluna 
-  // defaultValue: Sequelize.NOW (no momento da inserção)
-});
-
-//create table if not exists...
-const init = async () => {
-  await Users.sync();
-  // await Users.drop(); //exclui a tabela user('users')
-  // await sequelize.drop(); //exclui todas as tabelas
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Users extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+    }
+  };
+  Users.init({
+    userName: DataTypes.STRING,
+    email: DataTypes.STRING,
+    password: DataTypes.STRING,
+    restaurant: DataTypes.STRING,
+    role: DataTypes.STRING
+  }, {
+    sequelize,
+    modelName: 'Users',
+  });
+  return Users;
 };
-
-init();
-
-module.exports = Users;
