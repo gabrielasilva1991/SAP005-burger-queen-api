@@ -1,6 +1,11 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable import/newline-after-import */
+/* eslint-disable strict */
+
 'use strict';
+
 const {
-  Model
+  Model,
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Users extends Model {
@@ -12,13 +17,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
-  };
+  }
   Users.init({
     userName: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     restaurant: DataTypes.STRING,
-    role: DataTypes.STRING
+    role: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Users',
