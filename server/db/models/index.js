@@ -1,3 +1,11 @@
+/* eslint-disable global-require */
+/* eslint-disable import/no-dynamic-require */
+/* eslint-disable arrow-parens */
+/* eslint-disable arrow-body-style */
+/* eslint-disable import/newline-after-import */
+/* eslint-disable strict */
+/* eslint-disable quotes */
+
 'use strict';
 
 require("dotenv").config();
