@@ -1,4 +1,8 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable strict */
+
+'use strict';
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Users', {
@@ -8,19 +12,25 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      userName: {
+      name: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       email: {
+        allowNull: false,
+        unique: true,
         type: Sequelize.STRING,
       },
       password: {
-        type: Sequelize.STRING,
-      },
-      restaurant: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       role: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      restaurant: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       createdAt: {
