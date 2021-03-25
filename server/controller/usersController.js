@@ -1,19 +1,21 @@
 const db = require('../db/models');
 
-const getUserAll = (req, res, next) => {
+const getUserAll = (req, res) => {
   db.Users.findAll()
     .then((result) => {
       res.status(200).json(result);
     })
-    .catch(next);
+    .catch(() => res.json({
+      message: 'erro ao processar requisição',
+    }));
 };
 
-const userCreate = (req, res, next) => {
+const userCreate = (req, res) => {
   const {
-    userName, email, password, restaurant, role,
+    name, email, password, restaurant, role,
   } = req.body;
   db.Users.create({
-    userName,
+    name,
     email,
     password,
     restaurant,
@@ -22,45 +24,57 @@ const userCreate = (req, res, next) => {
     .then((result) => {
       res.status(201).json(result);
     })
-    .catch(next);
+    .catch(() => res.json({
+      message: 'erro ao criar usuário',
+    }));
 };
 
-const getUserId = (req, res, next) => {
+const getUserId = (req, res) => {
   db.Users.findAll({ where: { id: req.params.id } })
     .then((user) => {
       res.status(200).json(user);
     })
-    .catch(next);
+    .catch(() => res.json({
+      message: 'erro ao processar requisição',
+    }));
 };
 
 const updateUserId = (req, res) => {
   const {
-    userName, email, password, restaurant, role,
+    name, email, password, restaurant, role,
   } = req.body;
   db.Users.update({
-    userName,
+    name,
     email,
     password,
     restaurant,
     role,
   }, { where: { id: req.params.id } })
 
-    .then(() => res.status(200).json({
-      message: 'usuário foi atualizado',
-    }))
-    .catch(() => res.json({
-      message: 'erro ao atualizar',
-    }));
+    .then(() => {
+      res.status(200).json({
+        message: 'usuário atualizado',
+      });
+    })
+    .catch(() => {
+      res.json({
+        message: 'erro ao atualizar usuário',
+      });
+    });
 };
 
-const deleteUserId = (req, res, next) => {
-  db.Users.destroy({
-    where: { id: req.params.id }, // where é usada para filtrar a consulta
-  })
-    .then((result) => {
-      res.status(200).json(result);
+const deleteUserId = (req, res) => {
+  db.Users.destroy({ where: { id: req.params.id } })
+    .then(() => {
+      res.status(200).json({
+        message: 'usuário excluído',
+      });
     })
-    .catch(next);
+    .catch(() => {
+      res.json({
+        message: 'erro ao excluir usuário',
+      });
+    });
 };
 
 module.exports = {
