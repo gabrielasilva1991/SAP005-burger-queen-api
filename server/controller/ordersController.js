@@ -3,8 +3,15 @@
 const db = require('../db/models');
 
 const getOrderAll = (req, res) => {
+  // const { user_id } = req.params;
+
+  // const user = db.Users.findByPk(user_id, {
+  //   include: { association: 'users' },
+  // });
+
   db.Orders.findAll()
     .then((result) => {
+      // res.status(200).json(user.users);
       res.status(200).json(result);
     })
     .catch(() => res.json({
@@ -13,9 +20,17 @@ const getOrderAll = (req, res) => {
 };
 
 const orderCreate = (req, res) => {
+  // const { user_id } = req.params;
   const {
     user_id, client_name, table, status, processedAt,
   } = req.body;
+
+  // const user = db.Users.findByPk(user_id);
+
+  // if (!user) {
+  //   return res.status(400).json({ error: 'User not found' });
+  // }
+
   db.Orders.create({
     user_id,
     client_name,
@@ -27,7 +42,7 @@ const orderCreate = (req, res) => {
       res.status(201).json(result);
     })
     .catch(() => res.json({
-      message: 'erro ao criar pedido',
+      message: 'erro ao salvar ordem',
     }));
 };
 
@@ -55,12 +70,12 @@ const updateOrderId = (req, res) => {
 
     .then(() => {
       res.status(200).json({
-        message: 'pedido atualizado',
+        message: 'ordem atualizada',
       });
     })
     .catch(() => {
       res.json({
-        message: 'erro ao atualizar pedido',
+        message: 'erro ao atualizar ordem',
       });
     });
 };
@@ -69,12 +84,12 @@ const deleteOrderId = (req, res) => {
   db.Orders.destroy({ where: { id: req.params.id } })
     .then(() => {
       res.status(200).json({
-        message: 'pedido excluído',
+        message: 'ordem excluída',
       });
     })
     .catch(() => {
       res.json({
-        message: 'erro ao excluir pedido',
+        message: 'erro ao excluir ordem',
       });
     });
 };

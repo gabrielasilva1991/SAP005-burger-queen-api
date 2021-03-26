@@ -29,7 +29,7 @@ const productCreate = (req, res) => {
       res.status(201).json(result);
     })
     .catch(() => res.json({
-      message: 'erro ao criar produto',
+      message: 'erro ao salvar produto',
     }));
 };
 
