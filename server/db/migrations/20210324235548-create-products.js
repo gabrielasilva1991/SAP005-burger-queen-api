@@ -1,8 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable strict */
-
-'use strict';
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Products', {
@@ -31,6 +26,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       type: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       sub_type: {
@@ -46,7 +42,7 @@ module.exports = {
       },
     });
   },
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface) => {
     await queryInterface.dropTable('Products');
   },
 };

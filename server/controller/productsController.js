@@ -1,30 +1,88 @@
-/* eslint-disable no-console */
-/* eslint-disable linebreak-style */
-const getProducts = (req, res) => {
-  console.log('você também pode utilizar o console para visualizar =)');
-  res.send('Request Get Products');
+/* eslint-disable camelcase */
+
+const db = require('../db/models');
+
+const getProductAll = (req, res) => {
+  db.Products.findAll()
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch(() => res.json({
+      message: 'erro ao processar requisição',
+    }));
+};
+
+const productCreate = (req, res) => {
+  const {
+    name, price, flavor, complement, image, type, sub_type,
+  } = req.body;
+  db.Products.create({
+    name,
+    price,
+    flavor,
+    complement,
+    image,
+    type,
+    sub_type,
+  })
+    .then((result) => {
+      res.status(201).json(result);
+    })
+    .catch(() => res.json({
+      message: 'erro ao salvar produto',
+    }));
 };
 
 const getProductId = (req, res) => {
-  console.log('você também pode utilizar o console para visualizar =)');
-  res.send('Request Get ProductId');
-};
-
-const productAdd = (req, res) => {
-  console.log('você também pode utilizar o console para visualizar =)');
-  res.send('Request Add Product');
+  db.Products.findAll({ where: { id: req.params.id } })
+    .then((product) => {
+      res.status(200).json(product);
+    })
+    .catch(() => res.json({
+      message: 'erro ao processar requisição',
+    }));
 };
 
 const updateProductId = (req, res) => {
-  console.log('você também pode utilizar o console para visualizar =)');
-  res.send('Request Update ProductId');
+  const {
+    name, price, flavor, complement, image, type, sub_type,
+  } = req.body;
+  db.Products.update({
+    name,
+    price,
+    flavor,
+    complement,
+    image,
+    type,
+    sub_type,
+  }, { where: { id: req.params.id } })
+
+    .then(() => {
+      res.status(200).json({
+        message: 'produto atualizado',
+      });
+    })
+    .catch(() => {
+      res.json({
+        message: 'erro ao atualizar produto',
+      });
+    });
 };
 
 const deleteProductId = (req, res) => {
-  console.log('você também pode utilizar o console para visualizar =)');
-  res.send('Request Delete ProductId');
+  db.Products.destroy({ where: { id: req.params.id } })
+    .then(() => {
+      res.status(200).json({
+        message: 'produto excluído',
+      });
+    })
+    .catch(() => {
+      res.json({
+        message: 'erro ao excluir produto',
+      });
+    });
 };
 
 module.exports = {
-  getProducts, getProductId, productAdd, updateProductId, deleteProductId,
+  getProductAll, getProductId, productCreate, updateProductId, deleteProductId,
 };

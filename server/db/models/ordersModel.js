@@ -1,19 +1,15 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable strict */
-
-'use strict';
-
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Orders extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      Orders.belongsTo(models.Users, {
+        foreignKey: 'user_id',
+      }); // orders pertence ao user_id => (userModel)
+      Orders.hasMany(models.ProductOrders, {
+        foreignKey: 'order_Id',
+      }); // products tem muitas order_Id => (productOrderModel)
+      // (coluna que ta armazenada dentro do productOrderModel)
     }
   }
   Orders.init({
