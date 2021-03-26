@@ -1,8 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable strict */
-
-'use strict';
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('ProductOrders', {
@@ -40,7 +35,7 @@ module.exports = {
       },
     });
   },
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface) => {
     await queryInterface.dropTable('ProductOrders');
   },
 };
