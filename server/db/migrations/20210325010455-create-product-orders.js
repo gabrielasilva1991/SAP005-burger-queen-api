@@ -10,15 +10,11 @@ module.exports = {
       order_id: {
         allowNull: false,
         references: { model: 'Orders', key: 'id' },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
         type: Sequelize.INTEGER,
       },
       product_id: {
         allowNull: false,
         references: { model: 'Products', key: 'id' },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
         type: Sequelize.INTEGER,
       },
       qtd: {
