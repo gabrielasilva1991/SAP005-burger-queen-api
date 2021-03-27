@@ -2,8 +2,8 @@
 
 const db = require('../db/models');
 
-const getProductAll = (req, res) => {
-  db.Products.findAll({
+const getProductOrdersAll = (req, res) => {
+  db.Users.findAll({
     attributes: { exclude: ['password'] },
   })
     .then((result) => {
@@ -14,76 +14,72 @@ const getProductAll = (req, res) => {
     }));
 };
 
-const productCreate = (req, res) => {
+const productOrdersCreate = (req, res) => {
   const {
-    name, price, flavor, complement, image, type, sub_type,
+    order_id, product_id, qtd,
   } = req.body;
-  db.Products.create({
-    name,
-    price,
-    flavor,
-    complement,
-    image,
-    type,
-    sub_type,
+  db.Users.create({
+    order_id,
+    product_id,
+    qtd,
   })
     .then((result) => {
       res.status(201).json(result);
     })
     .catch(() => res.status(400).json({
-      message: 'erro ao salvar produto',
+      message: 'erro ao criar pedido',
     }));
 };
 
-const getProductId = (req, res) => {
-  db.Products.findAll({
+const getProductOrdersId = (req, res) => {
+  db.Users.findAll({
     attributes: { exclude: ['password'] },
     where: { id: req.params.id },
   })
-    .then((product) => {
-      res.status(200).json(product);
+    .then((user) => {
+      res.status(200).json(user);
     })
     .catch(() => res.status(400).json({
       message: 'erro ao processar requisição',
     }));
 };
 
-const updateProductId = (req, res) => {
+const updateProductOrdersId = (req, res) => {
   const {
-    price, complement, image,
+    order_id, product_id, qtd,
   } = req.body;
-  db.Products.update({
-    price,
-    complement,
-    image,
+  db.Users.update({
+    order_id,
+    product_id,
+    qtd,
   }, { where: { id: req.params.id } })
 
     .then(() => {
       res.status(200).json({
-        message: 'produto atualizado',
+        message: 'pedido atualizado',
       });
     })
     .catch(() => res.status(400).json({
-      message: 'erro ao atualizar produto',
+      message: 'erro ao atualizar pedido',
     }));
 };
 
-const deleteProductId = (req, res) => {
-  db.Products.destroy({ where: { id: req.params.id } })
+const deleteProductOrdersId = (req, res) => {
+  db.Users.destroy({ where: { id: req.params.id } })
     .then(() => {
       res.status(200).json({
-        message: 'produto excluído',
+        message: 'pedido excluído',
       });
     })
     .catch(() => res.status(400).json({
-      message: 'erro ao excluir produto',
+      message: 'erro ao excluir pedido',
     }));
 };
 
 module.exports = {
-  getProductAll,
-  getProductId,
-  productCreate,
-  updateProductId,
-  deleteProductId,
+  getProductOrdersAll,
+  productOrdersCreate,
+  getProductOrdersId,
+  updateProductOrdersId,
+  deleteProductOrdersId,
 };

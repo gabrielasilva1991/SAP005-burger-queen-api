@@ -9,12 +9,14 @@ const getOrderAll = (req, res) => {
   //   include: { association: 'users' },
   // });
 
-  db.Orders.findAll()
+  db.Orders.findAll({
+    attributes: { exclude: ['password'] },
+  })
     .then((result) => {
       // res.status(200).json(user.users);
       res.status(200).json(result);
     })
-    .catch(() => res.json({
+    .catch(() => res.status(400).json({
       message: 'erro ao processar requisição',
     }));
 };
@@ -41,31 +43,30 @@ const orderCreate = (req, res) => {
     .then((result) => {
       res.status(201).json(result);
     })
-    .catch(() => res.json({
+    .catch(() => res.status(400).json({
       message: 'erro ao salvar ordem',
     }));
 };
 
 const getOrderId = (req, res) => {
-  db.Orders.findAll({ where: { id: req.params.id } })
+  db.Orders.findAll({
+    attributes: { exclude: ['password'] },
+    where: { id: req.params.id },
+  })
     .then((product) => {
       res.status(200).json(product);
     })
-    .catch(() => res.json({
+    .catch(() => res.status(400).json({
       message: 'erro ao processar requisição',
     }));
 };
 
 const updateOrderId = (req, res) => {
   const {
-    user_id, client_name, table, status, processedAt,
+    status,
   } = req.body;
   db.Orders.update({
-    user_id,
-    client_name,
-    table,
     status,
-    processedAt,
   }, { where: { id: req.params.id } })
 
     .then(() => {
@@ -73,11 +74,9 @@ const updateOrderId = (req, res) => {
         message: 'ordem atualizada',
       });
     })
-    .catch(() => {
-      res.json({
-        message: 'erro ao atualizar ordem',
-      });
-    });
+    .catch(() => res.status(400).json({
+      message: 'erro ao atualizar ordem',
+    }));
 };
 
 const deleteOrderId = (req, res) => {
@@ -87,13 +86,15 @@ const deleteOrderId = (req, res) => {
         message: 'ordem excluída',
       });
     })
-    .catch(() => {
-      res.json({
-        message: 'erro ao excluir ordem',
-      });
-    });
+    .catch(() => res.status(400).json({
+      message: 'erro ao excluir ordem',
+    }));
 };
 
 module.exports = {
-  getOrderAll, getOrderId, orderCreate, updateOrderId, deleteOrderId,
+  getOrderAll,
+  getOrderId,
+  orderCreate,
+  updateOrderId,
+  deleteOrderId,
 };

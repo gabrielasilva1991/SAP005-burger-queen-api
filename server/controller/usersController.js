@@ -1,11 +1,13 @@
 const db = require('../db/models');
 
 const getUserAll = (req, res) => {
-  db.Users.findAll()
+  db.Users.findAll({
+    attributes: { exclude: ['password'] },
+  })
     .then((result) => {
       res.status(200).json(result);
     })
-    .catch(() => res.json({
+    .catch(() => res.status(400).json({
       message: 'erro ao processar requisição',
     }));
 };
@@ -24,30 +26,31 @@ const userCreate = (req, res) => {
     .then((result) => {
       res.status(201).json(result);
     })
-    .catch(() => res.json({
+    .catch(() => res.status(400).json({
       message: 'erro ao criar usuário',
     }));
 };
 
 const getUserId = (req, res) => {
-  db.Users.findAll({ where: { id: req.params.id } })
+  db.Users.findAll({
+    attributes: { exclude: ['password'] },
+    where: { id: req.params.id },
+  })
     .then((user) => {
       res.status(200).json(user);
     })
-    .catch(() => res.json({
+    .catch(() => res.status(400).json({
       message: 'erro ao processar requisição',
     }));
 };
 
 const updateUserId = (req, res) => {
   const {
-    name, email, password, restaurant, role,
+    name, password, role,
   } = req.body;
   db.Users.update({
     name,
-    email,
     password,
-    restaurant,
     role,
   }, { where: { id: req.params.id } })
 
@@ -56,11 +59,9 @@ const updateUserId = (req, res) => {
         message: 'usuário atualizado',
       });
     })
-    .catch(() => {
-      res.json({
-        message: 'erro ao atualizar usuário',
-      });
-    });
+    .catch(() => res.status(400).json({
+      message: 'erro ao atualizar usuário',
+    }));
 };
 
 const deleteUserId = (req, res) => {
@@ -70,13 +71,15 @@ const deleteUserId = (req, res) => {
         message: 'usuário excluído',
       });
     })
-    .catch(() => {
-      res.json({
-        message: 'erro ao excluir usuário',
-      });
-    });
+    .catch(() => res.status(400).json({
+      message: 'erro ao excluir usuário',
+    }));
 };
 
 module.exports = {
-  getUserAll, userCreate, getUserId, updateUserId, deleteUserId,
+  getUserAll,
+  userCreate,
+  getUserId,
+  updateUserId,
+  deleteUserId,
 };
