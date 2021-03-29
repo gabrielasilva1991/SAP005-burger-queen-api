@@ -1,17 +1,11 @@
+/* eslint-disable no-console */
 /* eslint-disable camelcase */
 
 const db = require('../db/models');
 
 const getOrderAll = (req, res) => {
-  // const { user_id } = req.params;
-
-  // const user = db.Users.findByPk(user_id, {
-  //   include: { association: 'users' },
-  // });
-
   db.Orders.findAll()
     .then((result) => {
-      // res.status(200).json(user.users);
       res.status(200).json(result);
     })
     .catch(() => res.status(400).json({
@@ -20,32 +14,11 @@ const getOrderAll = (req, res) => {
 };
 
 const orderCreate = (req, res) => {
-  // const { user_id } = req.params;
   const {
     user_id, client_name, table, status, processedAt,
   } = req.body;
 
-  // const user = db.Users.findByPk(user_id);
-
-  // if (!user) {
-  //   return res.status(400).json({ error: 'User not found' });
-  // }
-
-  // db.Orders.create({
-  //   user_id,
-  //   client_name,
-  //   table,
-  //   status,
-  //   processedAt,
-  // })
-  //   .then((result) => {
-  //     res.status(201).json(result);
-  //   })
-  //   .catch(() => res.status(400).json({
-  //     message: 'erro ao salvar ordem',
-  //   }));
-
-  const savedOrder = db.Orders.create({
+  db.Orders.create({
     user_id,
     client_name,
     table,
@@ -53,33 +26,28 @@ const orderCreate = (req, res) => {
     processedAt,
   })
     .then((result) => {
-      res.status(201).json(result);
+      req.body.products.map((product) => {
+        const itemProduct = db.Products.findByPk(product.id);
+        if (!itemProduct) {
+          return res.status(400).json({
+            message: 'erro ao buscar produto',
+          });
+        }
+
+        const itemOrders = {
+          order_id: result.id,
+          product_id: product.id,
+          qtd: product.qtd,
+        };
+
+        db.ProductOrders.create(itemOrders);
+
+        return res.status(200).json(result);
+      });
     })
     .catch(() => res.status(400).json({
-      message: 'erro ao salvar ordem',
+      message: 'erro ao criar pedido',
     }));
-
-  req.body.products.map((item) => {
-    const product = db.Products.findByPk(item.id);
-    if (!product) {
-      return res.status(400);
-    }
-
-    const prodOrders = {
-      orderId: savedOrder.id,
-      productId: item.id,
-      qtd: item.qtd,
-    };
-
-    db.ProductOrders.create(prodOrders)
-      .then((result) => {
-        res.status(201).json(result);
-      })
-      .catch(() => res.status(400).json({
-        message: 'erro ao salvar produto',
-      }));
-    return res.status(200).json(savedOrder);
-  });
 };
 
 const getOrderId = (req, res) => {

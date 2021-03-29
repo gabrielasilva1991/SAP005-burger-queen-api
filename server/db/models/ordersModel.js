@@ -7,8 +7,8 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'user_id',
       }); // orders pertence ao user_id => (userModel)
       Orders.hasMany(models.ProductOrders, {
-        foreignKey: 'order_Id',
-      }); // products tem muitas order_Id => (productOrderModel)
+        foreignKey: 'order_id',
+      }); // products tem muitas order_id => (productOrderModel)
       // (coluna que ta armazenada dentro do productOrderModel)
     }
   }
