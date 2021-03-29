@@ -26,6 +26,7 @@ module.exports = {
       },
       restaurant: {
         allowNull: false,
+        defaultValue: 'Lab Burger',
         type: Sequelize.STRING,
       },
       createdAt: {
