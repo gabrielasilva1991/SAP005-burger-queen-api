@@ -9,9 +9,7 @@ const getOrderAll = (req, res) => {
   //   include: { association: 'users' },
   // });
 
-  db.Orders.findAll({
-    attributes: { exclude: ['password'] },
-  })
+  db.Orders.findAll()
     .then((result) => {
       // res.status(200).json(user.users);
       res.status(200).json(result);
@@ -33,7 +31,21 @@ const orderCreate = (req, res) => {
   //   return res.status(400).json({ error: 'User not found' });
   // }
 
-  db.Orders.create({
+  // db.Orders.create({
+  //   user_id,
+  //   client_name,
+  //   table,
+  //   status,
+  //   processedAt,
+  // })
+  //   .then((result) => {
+  //     res.status(201).json(result);
+  //   })
+  //   .catch(() => res.status(400).json({
+  //     message: 'erro ao salvar ordem',
+  //   }));
+
+  const savedOrder = db.Orders.create({
     user_id,
     client_name,
     table,
@@ -46,11 +58,32 @@ const orderCreate = (req, res) => {
     .catch(() => res.status(400).json({
       message: 'erro ao salvar ordem',
     }));
+
+  req.body.products.map((item) => {
+    const product = db.Products.findByPk(item.id);
+    if (!product) {
+      return res.status(400);
+    }
+
+    const prodOrders = {
+      orderId: savedOrder.id,
+      productId: item.id,
+      qtd: item.qtd,
+    };
+
+    db.ProductOrders.create(prodOrders)
+      .then((result) => {
+        res.status(201).json(result);
+      })
+      .catch(() => res.status(400).json({
+        message: 'erro ao salvar produto',
+      }));
+    return res.status(200).json(savedOrder);
+  });
 };
 
 const getOrderId = (req, res) => {
   db.Orders.findAll({
-    attributes: { exclude: ['password'] },
     where: { id: req.params.id },
   })
     .then((product) => {

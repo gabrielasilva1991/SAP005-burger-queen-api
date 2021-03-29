@@ -3,9 +3,7 @@
 const db = require('../db/models');
 
 const getProductOrdersAll = (req, res) => {
-  db.Users.findAll({
-    attributes: { exclude: ['password'] },
-  })
+  db.Users.findAll()
     .then((result) => {
       res.status(200).json(result);
     })
@@ -33,7 +31,6 @@ const productOrdersCreate = (req, res) => {
 
 const getProductOrdersId = (req, res) => {
   db.Users.findAll({
-    attributes: { exclude: ['password'] },
     where: { id: req.params.id },
   })
     .then((user) => {

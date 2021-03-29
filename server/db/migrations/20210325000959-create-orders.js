@@ -22,6 +22,7 @@ module.exports = {
       },
       status: {
         allowNull: false,
+        defaultValue: 'pendente',
         type: Sequelize.STRING,
       },
       processedAt: {
