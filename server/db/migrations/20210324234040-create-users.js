@@ -7,28 +7,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      email: {
-        allowNull: false,
-        unique: true,
-        type: Sequelize.STRING,
-      },
-      password: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      role: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      restaurant: {
-        allowNull: false,
-        defaultValue: 'Lab Burger',
-        type: Sequelize.STRING,
-      },
+      name: { type: Sequelize.STRING },
+      email: { type: Sequelize.STRING },
+      password: { type: Sequelize.STRING },
+      role: { type: Sequelize.STRING },
+      restaurant: { type: Sequelize.STRING },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
