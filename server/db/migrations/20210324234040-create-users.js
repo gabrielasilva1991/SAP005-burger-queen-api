@@ -8,7 +8,10 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       name: { type: Sequelize.STRING },
-      email: { type: Sequelize.STRING },
+      email: {
+        unique: true,
+        type: Sequelize.STRING,
+      },
       password: { type: Sequelize.STRING },
       role: { type: Sequelize.STRING },
       restaurant: { type: Sequelize.STRING },
