@@ -1,10 +1,25 @@
+/* eslint-disable spaced-comment */
 /* eslint-disable no-console */
 /* eslint-disable camelcase */
 
 const db = require('../db/models');
 
-const getOrderAll = (req, res) => {
-  db.Orders.findAll()
+const getOrderAll = async (req, res) => {
+  await db.Orders.findAll({
+    include: [{
+      model: db.Products,
+      as: 'products',
+      required: false,
+      attributes: [
+        'id', 'name', 'type', 'price', 'flavor', 'complement',
+      ],
+      through: {
+        model: db.ProductOrders,
+        as: 'productOrders',
+        attributes: ['qtd'],
+      },
+    }],
+  })
     .then((result) => {
       res.status(200).json(result);
     })
@@ -13,12 +28,20 @@ const getOrderAll = (req, res) => {
     }));
 };
 
-const orderCreate = (req, res) => {
+const orderCreate = async (req, res) => {
   const {
     user_id, client_name, table, status, processedAt,
   } = req.body;
 
-  db.Orders.create({
+  const userId = await db.Users.findByPk(user_id, {
+    include: { association: 'ordersMany' },
+  });
+
+  if (!userId) {
+    res.status(404).json({ message: 'Usuário não encontrado' });
+  }
+
+  await db.Orders.create({
     user_id,
     client_name,
     table,
@@ -50,9 +73,22 @@ const orderCreate = (req, res) => {
     }));
 };
 
-const getOrderId = (req, res) => {
-  db.Orders.findAll({
+const getOrderId = async (req, res) => {
+  await db.Orders.findAll({
     where: { id: req.params.id },
+    include: [{
+      model: db.Products,
+      as: 'products',
+      required: false,
+      attributes: [
+        'id', 'name', 'type', 'price', 'flavor', 'complement',
+      ],
+      through: {
+        model: db.ProductOrders,
+        as: 'productOrders',
+        attributes: ['qtd'],
+      },
+    }],
   })
     .then((product) => {
       res.status(200).json(product);
