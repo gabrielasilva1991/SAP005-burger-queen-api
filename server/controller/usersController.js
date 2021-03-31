@@ -20,31 +20,18 @@ const userCreate = async (req, res) => {
     name, email, password, restaurant, role,
   } = req.body;
 
-  // const userId = await db.Users.findByPk(req.params.email);
-
-  // if (!userId) {
-  //   res.status(404).json({ message: 'Email já cadastrado' });
-  // }
-
-  const verifyEmail = await db.Users.findOrCreate({
+  // const [user, created] = await db.Users.findOrCreate({
+  await db.Users.findOrCreate({
     where: { email },
     defaults: {
       email, name, password, role, restaurant,
     },
-  });
-  // const userId = db.Users.findByPk(req.params.email);
-  if (verifyEmail[1] === false) {
-    res.status(404).json({ message: 'Email já cadastrado' });
-  }
-
-  await db.Users.create({
-    name,
-    email,
-    password,
-    restaurant,
-    role,
   })
     .then((createUser) => {
+      const create = createUser[1];
+      if (!create) {
+        res.status(404).json({ message: 'Email já cadastrado' });
+      }
       res.status(201).json(createUser);
     })
     .catch(() => res.status(400).json({
