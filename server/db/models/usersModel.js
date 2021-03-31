@@ -5,8 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Users.hasMany(models.Orders, {
         foreignKey: 'user_id',
-      }); // users tem muitas orders => (ordersModel)
-      // (coluna que ta armazenada dentro da orders)
+        as: 'ordersMany',
+      });
     }
   }
   Users.init({

@@ -3,10 +3,12 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Products extends Model {
     static associate(models) {
-      Products.hasMany(models.ProductOrders, {
+      Products.belongsToMany(models.Orders, {
+        through: 'ProductsOrders',
+        as: 'orders',
         foreignKey: 'product_id',
-      }); // products tem muitos product_id => (productOrderModel)
-      // (coluna que ta armazenada dentro do productOrderModel)
+        otherKey: 'order_id',
+      });
     }
   }
   Products.init({

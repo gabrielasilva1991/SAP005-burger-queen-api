@@ -1,24 +1,46 @@
-/* eslint-disable no-console */
-/* eslint-disable camelcase */
-
 const db = require('../db/models');
 
-const getOrderAll = (req, res) => {
-  db.Orders.findAll()
-    .then((result) => {
-      res.status(200).json(result);
+const getOrderAll = async (req, res) => {
+  await db.Orders.findAll({
+    include: [{
+      model: db.Products,
+      as: 'products',
+      required: false,
+      attributes: [
+        'id', 'name', 'type', 'price', 'flavor', 'complement',
+      ],
+      through: {
+        model: db.ProductOrders,
+        as: 'productOrders',
+        attributes: ['qtd'],
+      },
+    }],
+  })
+    .then((orders) => {
+      if (orders.length === 0) {
+        res.status(404).json({ message: 'Não existem pedidos' });
+      }
+      res.status(200).json(orders);
     })
     .catch(() => res.status(400).json({
-      message: 'erro ao processar requisição',
+      message: 'Erro ao processar requisição',
     }));
 };
 
-const orderCreate = (req, res) => {
+const orderCreate = async (req, res) => {
   const {
     user_id, client_name, table, status, processedAt,
   } = req.body;
 
-  db.Orders.create({
+  const userId = await db.Users.findByPk(user_id, {
+    include: { association: 'ordersMany' },
+  });
+
+  if (!userId) {
+    res.status(404).json({ message: 'Usuário não cadastrado' });
+  }
+
+  await db.Orders.create({
     user_id,
     client_name,
     table,
@@ -30,7 +52,7 @@ const orderCreate = (req, res) => {
         const itemProduct = db.Products.findByPk(product.id);
         if (!itemProduct) {
           return res.status(400).json({
-            message: 'erro ao buscar produto',
+            message: 'Erro ao buscar produto',
           });
         }
 
@@ -46,49 +68,81 @@ const orderCreate = (req, res) => {
       });
     })
     .catch(() => res.status(400).json({
-      message: 'erro ao criar pedido',
+      message: 'Erro ao criar pedido',
     }));
 };
 
-const getOrderId = (req, res) => {
-  db.Orders.findAll({
+const getOrderId = async (req, res) => {
+  const orderId = await db.Orders.findByPk(req.params.id);
+
+  if (!orderId) {
+    res.status(404).json({ message: 'Pedido não encontrado' });
+  }
+
+  await db.Orders.findAll({
     where: { id: req.params.id },
+    include: [{
+      model: db.Products,
+      as: 'products',
+      required: false,
+      attributes: [
+        'id', 'name', 'type', 'price', 'flavor', 'complement',
+      ],
+      through: {
+        model: db.ProductOrders,
+        as: 'productOrders',
+        attributes: ['qtd'],
+      },
+    }],
   })
-    .then((product) => {
-      res.status(200).json(product);
+    .then((orderId) => {
+      res.status(200).json(orderId);
     })
     .catch(() => res.status(400).json({
-      message: 'erro ao processar requisição',
+      message: 'Erro ao processar requisição',
     }));
 };
 
-const updateOrderId = (req, res) => {
+const updateOrderId = async (req, res) => {
   const {
     status,
   } = req.body;
-  db.Orders.update({
+
+  const orderId = await db.Orders.findByPk(req.params.id);
+
+  if (!orderId) {
+    res.status(404).json({ message: 'Pedido não encontrado' });
+  }
+
+  await db.Orders.update({
     status,
   }, { where: { id: req.params.id } })
 
     .then(() => {
       res.status(200).json({
-        message: 'ordem atualizada',
+        message: 'Pedido atualizado',
       });
     })
     .catch(() => res.status(400).json({
-      message: 'erro ao atualizar ordem',
+      message: 'Erro ao atualizar pedido',
     }));
 };
 
-const deleteOrderId = (req, res) => {
-  db.Orders.destroy({ where: { id: req.params.id } })
+const deleteOrderId = async (req, res) => {
+  const orderId = await db.Orders.findByPk(req.params.id);
+
+  if (!orderId) {
+    res.status(404).json({ message: 'Pedido não encontrado' });
+  }
+
+  await db.Orders.destroy({ where: { id: req.params.id } })
     .then(() => {
       res.status(200).json({
-        message: 'ordem excluída',
+        message: 'Pedido excluído',
       });
     })
     .catch(() => res.status(400).json({
-      message: 'erro ao excluir ordem',
+      message: 'Erro ao excluir pedido',
     }));
 };
 

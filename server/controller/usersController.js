@@ -20,7 +20,6 @@ const userCreate = async (req, res) => {
     name, email, password, restaurant, role,
   } = req.body;
 
-  // const [user, created] = await db.Users.findOrCreate({
   await db.Users.findOrCreate({
     where: { email },
     defaults: {
