@@ -1,7 +1,3 @@
-/* eslint-disable spaced-comment */
-/* eslint-disable no-console */
-/* eslint-disable camelcase */
-
 const db = require('../db/models');
 
 const getOrderAll = async (req, res) => {
@@ -20,11 +16,14 @@ const getOrderAll = async (req, res) => {
       },
     }],
   })
-    .then((result) => {
-      res.status(200).json(result);
+    .then((orders) => {
+      if (orders.length === 0) {
+        res.status(404).json({ message: 'Não existem pedidos' });
+      }
+      res.status(200).json(orders);
     })
     .catch(() => res.status(400).json({
-      message: 'erro ao processar requisição',
+      message: 'Erro ao processar requisição',
     }));
 };
 
@@ -38,7 +37,7 @@ const orderCreate = async (req, res) => {
   });
 
   if (!userId) {
-    res.status(404).json({ message: 'Usuário não encontrado' });
+    res.status(404).json({ message: 'Usuário não cadastrado' });
   }
 
   await db.Orders.create({
@@ -53,7 +52,7 @@ const orderCreate = async (req, res) => {
         const itemProduct = db.Products.findByPk(product.id);
         if (!itemProduct) {
           return res.status(400).json({
-            message: 'erro ao buscar produto',
+            message: 'Erro ao buscar produto',
           });
         }
 
@@ -69,11 +68,17 @@ const orderCreate = async (req, res) => {
       });
     })
     .catch(() => res.status(400).json({
-      message: 'erro ao criar pedido',
+      message: 'Erro ao criar pedido',
     }));
 };
 
 const getOrderId = async (req, res) => {
+  const orderId = await db.Orders.findByPk(req.params.id);
+
+  if (!orderId) {
+    res.status(404).json({ message: 'Pedido não encontrado' });
+  }
+
   await db.Orders.findAll({
     where: { id: req.params.id },
     include: [{
@@ -90,41 +95,54 @@ const getOrderId = async (req, res) => {
       },
     }],
   })
-    .then((product) => {
-      res.status(200).json(product);
+    .then((orderId) => {
+      res.status(200).json(orderId);
     })
     .catch(() => res.status(400).json({
-      message: 'erro ao processar requisição',
+      message: 'Erro ao processar requisição',
     }));
 };
 
-const updateOrderId = (req, res) => {
+const updateOrderId = async (req, res) => {
   const {
     status,
   } = req.body;
-  db.Orders.update({
+
+  const orderId = await db.Orders.findByPk(req.params.id);
+
+  if (!orderId) {
+    res.status(404).json({ message: 'Pedido não encontrado' });
+  }
+
+  await db.Orders.update({
     status,
   }, { where: { id: req.params.id } })
 
     .then(() => {
       res.status(200).json({
-        message: 'ordem atualizada',
+        message: 'Pedido atualizado',
       });
     })
     .catch(() => res.status(400).json({
-      message: 'erro ao atualizar ordem',
+      message: 'Erro ao atualizar pedido',
     }));
 };
 
-const deleteOrderId = (req, res) => {
-  db.Orders.destroy({ where: { id: req.params.id } })
+const deleteOrderId = async (req, res) => {
+  const orderId = await db.Orders.findByPk(req.params.id);
+
+  if (!orderId) {
+    res.status(404).json({ message: 'Pedido não encontrado' });
+  }
+
+  await db.Orders.destroy({ where: { id: req.params.id } })
     .then(() => {
       res.status(200).json({
-        message: 'ordem excluída',
+        message: 'Pedido excluído',
       });
     })
     .catch(() => res.status(400).json({
-      message: 'erro ao excluir ordem',
+      message: 'Erro ao excluir pedido',
     }));
 };
 
