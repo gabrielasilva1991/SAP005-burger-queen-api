@@ -62,7 +62,7 @@ Acesse o link https://apiburgerqueen.herokuapp.com/ e acesse os endpoints.
 
 ## 4. Estrutura do Banco de Dados :key:
 
-![](/server/image/diagrama.jpeg)
+![](/server/image/diagrama.jpg)
 
 ## 5. Organização e Planejamento :calendar:
 
@@ -71,7 +71,7 @@ dividindo da seguinte forma: a fazer / em progresso / feito / sprint concluída.
 
 Abaixo o quadro de organização:
 
-![](/server/image/gitHub_projects.jpeg)
+![](/server/image/gitHub_projects.jpg)
 
 ## 6. Bibliotecas e Ferramentas Utilizadas :wrench::hammer:
 
