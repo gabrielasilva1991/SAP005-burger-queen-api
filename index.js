@@ -13,9 +13,9 @@ app.use(express.json());
 app.use('/', routesApi);
 
 app.get('*', (req, res) => {
-  res.send('Hello World!'); // send envia a resposta p o http para que seja exibida no navegador
+  res.status(200).send({ message: 'Esta é a API do Burger Queen' });
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`O aplicativo está sendo executado em Port ${port}`);
 });
