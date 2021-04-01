@@ -62,7 +62,7 @@ Acesse o link https://apiburgerqueen.herokuapp.com/ e acesse os endpoints.
 
 ## 4. Estrutura do Banco de Dados :key:
 
-![](/server/image/diagrama.PNG)
+![](/server/image/diagrama.jpeg)
 
 ## 5. Organização e Planejamento :calendar:
 
@@ -80,7 +80,7 @@ Abaixo o quadro de organização:
 - [Sequelize](https://sequelize.org)
 - Implementação do deploy utilizando [Heroku](https://www.heroku.com/home) com integração ao [PostgreSQL](https://www.heroku.com/postgres)
 - Testes de requisições utilizando [Postman](https://www.getpostman.com)
-- [ESLint] (https://eslint.org/docs/user-guide/getting-started)
+- [ESLint](https://eslint.org/docs/user-guide/getting-started)
 - VsCode
 - GitHub
 - GitHub Projects
