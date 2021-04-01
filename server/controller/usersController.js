@@ -6,12 +6,12 @@ const getUserAll = async (req, res) => {
   })
     .then((users) => {
       if (users.length === 0) {
-        res.status(404).json({ message: 'Não existe  usuários cadastrados' });
+        res.status(404).json({ message: 'Não existe usuários cadastrados' });
       }
       res.status(200).json(users);
     })
     .catch(() => res.status(400).json({
-      message: 'erro ao processar requisição',
+      message: 'Erro ao processar requisição',
     }));
 };
 
@@ -25,6 +25,7 @@ const userCreate = async (req, res) => {
     defaults: {
       email, name, password, role, restaurant,
     },
+    attributes: { exclude: ['password'] },
   })
     .then((createUser) => {
       const create = createUser[1];
@@ -34,7 +35,7 @@ const userCreate = async (req, res) => {
       res.status(201).json(createUser);
     })
     .catch(() => res.status(400).json({
-      message: 'erro ao criar usuário',
+      message: 'Erro ao criar usuário',
     }));
 };
 
@@ -53,7 +54,7 @@ const getUserId = async (req, res) => {
       res.status(200).json(user);
     })
     .catch(() => res.status(400).json({
-      message: 'erro ao processar requisição',
+      message: 'Erro ao processar requisição',
     }));
 };
 
@@ -76,11 +77,11 @@ const updateUserId = async (req, res) => {
 
     .then(() => {
       res.status(200).json({
-        message: 'usuário atualizado',
+        message: 'Usuário atualizado',
       });
     })
     .catch(() => res.status(400).json({
-      message: 'erro ao atualizar usuário',
+      message: 'Erro ao atualizar usuário',
     }));
 };
 
@@ -94,11 +95,11 @@ const deleteUserId = async (req, res) => {
   await db.Users.destroy({ where: { id: req.params.id } })
     .then(() => {
       res.status(200).json({
-        message: 'usuário excluído',
+        message: 'Usuário excluído',
       });
     })
     .catch(() => res.status(400).json({
-      message: 'erro ao excluir usuário',
+      message: 'Erro ao excluir usuário',
     }));
 };
 
