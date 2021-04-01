@@ -2,21 +2,25 @@
 
 const db = require('../db/models');
 
-const getProductAll = (req, res) => {
-  db.Products.findAll()
-    .then((result) => {
-      res.status(200).json(result);
+const getProductAll = async (req, res) => {
+  await db.Products.findAll()
+    .then((products) => {
+      if (products.length === 0) {
+        res.status(404).json({ message: 'Não existe produtos cadastrados' });
+      }
+      res.status(200).json(products);
     })
     .catch(() => res.status(400).json({
-      message: 'erro ao processar requisição',
+      message: 'Erro ao processar requisição',
     }));
 };
 
-const productCreate = (req, res) => {
+const productCreate = async (req, res) => {
   const {
     name, price, flavor, complement, image, type, sub_type,
   } = req.body;
-  db.Products.create({
+
+  await db.Products.create({
     name,
     price,
     flavor,
@@ -29,27 +33,40 @@ const productCreate = (req, res) => {
       res.status(201).json(result);
     })
     .catch(() => res.status(400).json({
-      message: 'erro ao salvar produto',
+      message: 'Erro ao cadastrar produto',
     }));
 };
 
-const getProductId = (req, res) => {
-  db.Products.findAll({
+const getProductId = async (req, res) => {
+  const productId = await db.Products.findByPk(req.params.id);
+
+  if (!productId) {
+    res.status(404).json({ message: 'Produto não encontrado' });
+  }
+
+  await db.Products.findAll({
     where: { id: req.params.id },
   })
     .then((product) => {
       res.status(200).json(product);
     })
     .catch(() => res.status(400).json({
-      message: 'erro ao processar requisição',
+      message: 'Erro ao processar requisição',
     }));
 };
 
-const updateProductId = (req, res) => {
+const updateProductId = async (req, res) => {
   const {
     price, complement, image,
   } = req.body;
-  db.Products.update({
+
+  const productId = await db.Products.findByPk(req.params.id);
+
+  if (!productId) {
+    res.status(404).json({ message: 'Produto não encontrado' });
+  }
+
+  await db.Products.update({
     price,
     complement,
     image,
@@ -57,23 +74,29 @@ const updateProductId = (req, res) => {
 
     .then(() => {
       res.status(200).json({
-        message: 'produto atualizado',
+        message: 'Produto atualizado',
       });
     })
     .catch(() => res.status(400).json({
-      message: 'erro ao atualizar produto',
+      message: 'Erro ao atualizar produto',
     }));
 };
 
-const deleteProductId = (req, res) => {
-  db.Products.destroy({ where: { id: req.params.id } })
+const deleteProductId = async (req, res) => {
+  const productId = await db.Products.findByPk(req.params.id);
+
+  if (!productId) {
+    res.status(404).json({ message: 'Produto não encontrado' });
+  }
+
+  await db.Products.destroy({ where: { id: req.params.id } })
     .then(() => {
       res.status(200).json({
-        message: 'produto excluído',
+        message: 'Produto excluído',
       });
     })
     .catch(() => res.status(400).json({
-      message: 'erro ao excluir produto',
+      message: 'Erro ao excluir produto',
     }));
 };
 

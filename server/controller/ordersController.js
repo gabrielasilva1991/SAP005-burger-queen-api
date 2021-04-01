@@ -95,8 +95,8 @@ const getOrderId = async (req, res) => {
       },
     }],
   })
-    .then((orderId) => {
-      res.status(200).json(orderId);
+    .then((order) => {
+      res.status(200).json(order);
     })
     .catch(() => res.status(400).json({
       message: 'Erro ao processar requisição',
