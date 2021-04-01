@@ -62,7 +62,7 @@ Acesse o link https://apiburgerqueen.herokuapp.com/ e acesse os endpoints.
 
 ## 4. Estrutura do Banco de Dados :key:
 
-![](/server/image/diagrama.png)
+![](/server/image/diagrama.jpeg)
 
 ## 5. Organização e Planejamento :calendar:
 
