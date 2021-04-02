@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 const db = require('../db/models');
 
 const getOrderAll = async (req, res) => {

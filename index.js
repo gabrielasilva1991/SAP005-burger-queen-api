@@ -17,5 +17,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`O aplicativo está sendo executado em Port ${port}`);
+  console.log(`O aplicativo está sendo executado em http://localhost:${port}`);
 });

@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "gnpoawvsfsxaft",
-    "password": "fd6b6b25a7be9549d4eb2caae11a9d97b1b141ba2856d2ffdc6a4b682bdeaff1",
-    "database": "ddfi05rin2f0s6",
-    "host": "ec2-18-214-208-89.compute-1.amazonaws.com",
+    "username": "chqvzfzeamksan",
+    "password": "55c6466c688bff071120085e402e85dff9c5bffc11a91ca8a1304cb505139948",
+    "database": "dbanb0shrlrcir",
+    "host": "ec2-52-87-107-83.compute-1.amazonaws.com",
     "dialect": "postgres",
     "dialectOptions": {
       "ssl": {
@@ -13,10 +13,10 @@
     }
   },
   "test": {
-    "username": "gnpoawvsfsxaft",
-    "password": "fd6b6b25a7be9549d4eb2caae11a9d97b1b141ba2856d2ffdc6a4b682bdeaff1",
-    "database": "ddfi05rin2f0s6",
-    "host": "ec2-18-214-208-89.compute-1.amazonaws.com",
+    "username": "chqvzfzeamksan",
+    "password": "55c6466c688bff071120085e402e85dff9c5bffc11a91ca8a1304cb505139948",
+    "database": "dbanb0shrlrcir",
+    "host": "ec2-52-87-107-83.compute-1.amazonaws.com",
     "dialect": "postgres",
     "dialectOptions": {
       "ssl": {
@@ -26,10 +26,10 @@
     }
   },
   "production": {
-    "username": "gnpoawvsfsxaft",
-    "password": "fd6b6b25a7be9549d4eb2caae11a9d97b1b141ba2856d2ffdc6a4b682bdeaff1",
-    "database": "ddfi05rin2f0s6",
-    "host": "ec2-18-214-208-89.compute-1.amazonaws.com",
+    "username": "chqvzfzeamksan",
+    "password": "55c6466c688bff071120085e402e85dff9c5bffc11a91ca8a1304cb505139948",
+    "database": "dbanb0shrlrcir",
+    "host": "ec2-52-87-107-83.compute-1.amazonaws.com",
     "dialect": "postgres",
     "dialectOptions": {
       "ssl": {

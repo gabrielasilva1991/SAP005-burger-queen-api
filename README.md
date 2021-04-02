@@ -4,15 +4,16 @@ Acesse a aplicação no link: https://apiburgerqueen.herokuapp.com/
 
 ## Índice
 
-- [1. Apresentação](#1-apresentação)
-- [2. Sobre o Projeto](#2-sobre-o-projeto)
-- [3. Como Utilizar](#2-como-utilizar)
-- [4. Estrutura do Banco de Dados](#3-estrutura-do-banco-de-dados)
-- [5. Organização e Planejamento](#4-organização-e-planejamento)
-- [6. Bibliotecas e Ferramentas Utilizadas](#7-bibliotecas-e-ferramentas-utilizadas)
-- [7. Desenvolvedoras](#8-desenvolvedoras)
+* [1. Apresentação](#1-apresentação)
+* [2. Sobre o Projeto](#2-sobre-o-projeto)
+* [3. Como Utilizar](#2-como-utilizar)
+* [4. Estrutura do Banco de Dados](#3-estrutura-do-banco-de-dados)
+* [5. Organização e Planejamento](#4-organização-e-planejamento)
+* [6. Bibliotecas e Ferramentas Utilizadas](#7-bibliotecas-e-ferramentas-utilizadas)
+* [7. Desenvolvedora](#8-desenvolvedora)
 
----
+***
+
 ## 1. Apresentação :sparkles:
 
 Projeto realizado durante o Bootcamp Laboratória - SAP005, com intuito de criarmos 
@@ -56,13 +57,21 @@ Agora foi desenvolvido o back-end para manejar os dados contendo os seguintes en
 
 ## 3. Como Utilizar :mag_right:
 
-Acesse o link https://apiburgerqueen.herokuapp.com/ e acesse os endpoints.
+Acesse o link https://apiburgerqueen.herokuapp.com/ com o endpoint de acordo com o que deseja fazer ou visualizar na API.
 
-![](/server/image/gif.gif)
+<p align="center">
+  <img src="./server/image/gif.gif">
+</p>
+
+<!-- ![](/server/image/gif.gif) -->
 
 ## 4. Estrutura do Banco de Dados :key:
 
-![](/server/image/diagram.jpeg)
+<div align="center">
+  <img src="server/image/diagram.jpeg"></img>
+</div>
+
+<!-- ![](/server/image/diagram.jpeg) -->
 
 ## 5. Organização e Planejamento :calendar:
 
