@@ -57,11 +57,10 @@ Agora foi desenvolvido o back-end para manejar os dados contendo os seguintes en
 
 ## 3. Como Utilizar :mag_right:
 
-Acesse o link https://apiburgerqueen.herokuapp.com/ com o endpoint desejado, 
-de acordo com o que deseja fazer ou visualizar na API.
+Acesse o link https://apiburgerqueen.herokuapp.com/ com o endpoint de acordo com o que deseja fazer ou visualizar na API.
 
 <p align="center">
-  <img src="./src/image/gif.gif">
+  <img src="./server/image/gif.gif">
 </p>
 
 <!-- ![](/server/image/gif.gif) -->
