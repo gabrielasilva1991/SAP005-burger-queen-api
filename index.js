@@ -3,6 +3,8 @@
 require('dotenv').config();
 
 const express = require('express');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 const routesApi = require('./server/routes/index');
 
 const port = process.env.PORT || 3000;
@@ -11,6 +13,7 @@ const app = express();
 
 app.use(express.json());
 app.use('/', routesApi);
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get('*', (req, res) => {
   res.status(200).send({ message: 'Esta é a API do Burger Queen' });
