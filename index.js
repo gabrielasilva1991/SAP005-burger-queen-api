@@ -14,9 +14,9 @@ app.use(express.json());
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/', routesApi);
 
-// app.get('*', (req, res) => {
-//   res.status(200).send({ message: 'Esta é a API do Burger Queen' });
-// });
+app.get('*', (req, res) => {
+  res.status(200).send({ message: 'Esta é a API do Burger Queen' });
+});
 
 app.listen(port, (error) => {
   if (error) {
