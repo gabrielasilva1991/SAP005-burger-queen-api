@@ -12,6 +12,7 @@ const app = express();
 
 app.use(express.json());
 app.use('/', routesApi);
+
 app.get('*', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // app.get('*', (req, res) => {
