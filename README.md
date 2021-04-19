@@ -6,11 +6,11 @@ Acesse a aplicação no link: https://apiburgerqueen.herokuapp.com/
 
 * [1. Apresentação](#1-apresentação)
 * [2. Sobre o Projeto](#2-sobre-o-projeto)
-* [3. Como Utilizar](#2-como-utilizar)
-* [4. Estrutura do Banco de Dados](#3-estrutura-do-banco-de-dados)
-* [5. Organização e Planejamento](#4-organização-e-planejamento)
-* [6. Bibliotecas e Ferramentas Utilizadas](#7-bibliotecas-e-ferramentas-utilizadas)
-* [7. Desenvolvedora](#8-desenvolvedora)
+* [3. Como Utilizar](#3-como-utilizar)
+* [4. Estrutura do Banco de Dados](#4-estrutura-do-banco-de-dados)
+* [5. Organização e Planejamento](#5-organização-e-planejamento)
+* [6. Bibliotecas e Ferramentas Utilizadas](#6-bibliotecas-e-ferramentas-utilizadas)
+* [7. Desenvolvedora](#7-desenvolvedora)
 
 ***
 
@@ -87,8 +87,9 @@ Abaixo o quadro de organização:
 - [Node.js](https://nodejs.org/)
 - [Express](https://expressjs.com/)
 - [Sequelize](https://sequelize.org)
-- Implementação do deploy utilizando [Heroku](https://www.heroku.com/home) com integração ao [PostgreSQL](https://www.heroku.com/postgres)
-- Testes de requisições utilizando [Postman](https://www.getpostman.com)
+- [Heroku](https://www.heroku.com/home) com integração ao [PostgreSQL](https://www.heroku.com/postgres) para deploy da API
+- [Postman](https://www.getpostman.com) para fazer testes das requisições
+- DBeaver para visualizar tabelas e suas relações
 - [ESLint](https://eslint.org/docs/user-guide/getting-started)
 - VsCode
 - GitHub
